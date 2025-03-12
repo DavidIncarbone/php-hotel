@@ -56,18 +56,47 @@
 
     // var_dump($hotels);
 
-    foreach ($hotels as $hotel) {
-        // var_dump($hotel);
+    // foreach ($hotels as $hotel) {
+    //     // var_dump($hotel);
 
-        foreach ($hotel as $key => $value) {
-            echo "$key : $value <br>";
-        };
-        echo "<br> <hr>";
-    }
-
+    //     foreach ($hotel as $key => $value) {
+    //         echo "$key : $value <br>";
+    //     };
+    //     echo "<br> <hr>";
+    // }
 
 
     ?>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <?php
+
+                foreach ($hotels[0] as $key => $value) {
+                    echo "<th scope='col'>$key</th>";
+                }
+
+                ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+
+            foreach ($hotels as $hotel) {
+
+                echo "<tr>
+                <th scope='row'>" . $hotel["name"] . "</th>
+                <td>" . $hotel["description"] . "</td>
+                <td>" . ($hotel["parking"] == 1 ? "Sì" : "No") . "</td>
+                <td>" . $hotel["vote"] . "</td>
+                <td>" . $hotel["distance_to_center"] . " KM" . "</td>
+                
+                     </tr>";
+            };
+            ?>;
+        </tbody>
+    </table>
 
 
 
