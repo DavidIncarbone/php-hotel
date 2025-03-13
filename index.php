@@ -83,54 +83,45 @@ $minVote = isset($_GET["minVote"]) && is_numeric($_GET["minVote"]) ? $_GET["minV
         </div>
     </form>
 
-    <table class="table">
-        <thead>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
             <tr>
                 <?php
-
                 foreach ($hotels[0] as $key => $value) {
                     echo "<th scope='col'>$key</th>";
                 }
-
                 ?>
             </tr>
         </thead>
         <tbody>
             <?php
-
             if ((!$isParking && !$minVote)) {
-
                 foreach ($hotels as $hotel) {
-
                     echo "<tr>
-                <th scope='row'>" . $hotel["name"] . "</th>
-                <td>" . $hotel["description"] . "</td>
-                <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
-                <td>" . $hotel["vote"] . "</td>
-                <td>" . $hotel["distance_to_center"] . " KM" . "</td>
-                
-                     </tr>";
+                    <th scope='row'>" . $hotel["name"] . "</th>
+                    <td>" . $hotel["description"] . "</td>
+                    <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
+                    <td>" . $hotel["vote"] . "</td>
+                    <td>" . $hotel["distance_to_center"] . " KM" . "</td>
+                 </tr>";
                 }
             } else {
                 foreach ($hotels as $hotel) {
-
                     if ($hotel["parking"] && $hotel["vote"] >= $minVote) {
                         echo "<tr>
-                <th scope='row'>" . $hotel["name"] . "</th>
-                <td>" . $hotel["description"] . "</td>
-                <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
-                <td>" . $hotel["vote"] . "</td>
-                <td>" . $hotel["distance_to_center"] . " KM" . "</td>
-                
+                        <th scope='row'>" . $hotel["name"] . "</th>
+                        <td>" . $hotel["description"] . "</td>
+                        <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
+                        <td>" . $hotel["vote"] . "</td>
+                        <td>" . $hotel["distance_to_center"] . " KM" . "</td>
                      </tr>";
                     } else if (!$isParking && $hotel["vote"] >= $minVote) {
                         echo "<tr>
-                <th scope='row'>" . $hotel["name"] . "</th>
-                <td>" . $hotel["description"] . "</td>
-                <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
-                <td>" . $hotel["vote"] . "</td>
-                <td>" . $hotel["distance_to_center"] . " KM" . "</td>
-                
+                        <th scope='row'>" . $hotel["name"] . "</th>
+                        <td>" . $hotel["description"] . "</td>
+                        <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
+                        <td>" . $hotel["vote"] . "</td>
+                        <td>" . $hotel["distance_to_center"] . " KM" . "</td>
                      </tr>";
                     }
                 }
@@ -138,6 +129,7 @@ $minVote = isset($_GET["minVote"]) && is_numeric($_GET["minVote"]) ? $_GET["minV
             ?>
         </tbody>
     </table>
+
 
 
 
