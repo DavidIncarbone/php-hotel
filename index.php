@@ -40,7 +40,7 @@ $hotels = [
 
 ];
 
-$isParking = isset($_GET["checked"]) && $_GET["checked"] == "on";
+$isParking = isset($_GET["checked"]) && $_GET["checked"] == "on" ? true : false;
 $minVote = isset($_GET["minVote"]) && is_numeric($_GET["minVote"]) ? $_GET["minVote"] : 0;
 ?>
 
@@ -63,20 +63,26 @@ $minVote = isset($_GET["minVote"]) && is_numeric($_GET["minVote"]) ? $_GET["minV
 
     <h2 class="text-center">Filtra i tuoi Hotels</h2>
 
-    <form action="" method="GET">
+    <form action="" method="GET" class="p-4 border rounded shadow-sm mb-2">
 
-        <div>
-            <input type="checkbox" id="parking" name="checked">
-            <label for="parking">Solo Hotel con parcheggio</label>
+        <!-- Parking Checkbox -->
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="parking" name="checked">
+            <label class="form-check-label" for="parking">Solo Hotel con parcheggio</label>
         </div>
-        <div class="my-2">
-            <input style="width:50px" type="number" id="minVote" name="minVote" min="1">
-            <label for="minVote">Voto minimo</label>
+
+        <!-- Minimum Vote -->
+        <div class="mb-3">
+            <label for="minVote" class="form-label">Voto minimo</label>
+            <input style="width: 75px;" type="number" id="minVote" name="minVote" min="1" class="form-control">
         </div>
+
+        <!-- Submit Button -->
         <div>
-            <button type="submit" class="btn btn-primary p-1">Filtra</button>
+            <button type="submit" class="btn btn-primary">Filtra</button>
         </div>
     </form>
+
     <table class="table">
         <thead>
             <tr>
