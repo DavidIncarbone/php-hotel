@@ -40,9 +40,8 @@ $hotels = [
 
 ];
 
-$isParking = $_GET["checked"] ?? "";
-$showAll = $_GET["all"] ?? "";
-$minVote = $_GET["minVote"] ?? 0;
+$isParking = isset($_GET["checked"]) && $_GET["checked"] == "on";
+$minVote = isset($_GET["minVote"]) && is_numeric($_GET["minVote"]) ? $_GET["minVote"] : 0;
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +51,7 @@ $minVote = $_GET["minVote"] ?? 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style></style>
+
     <title>PHP Hotel</title>
 </head>
 
@@ -100,7 +99,7 @@ $minVote = $_GET["minVote"] ?? 0;
                     echo "<tr>
                 <th scope='row'>" . $hotel["name"] . "</th>
                 <td>" . $hotel["description"] . "</td>
-                <td>" . ($hotel["parking"] == 1 ? "Sì" : "No") . "</td>
+                <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
                 <td>" . $hotel["vote"] . "</td>
                 <td>" . $hotel["distance_to_center"] . " KM" . "</td>
                 
@@ -109,11 +108,11 @@ $minVote = $_GET["minVote"] ?? 0;
             } else {
                 foreach ($hotels as $hotel) {
 
-                    if ($hotel["parking"] == 1 && $hotel["vote"] >= $minVote) {
+                    if ($hotel["parking"] && $hotel["vote"] >= $minVote) {
                         echo "<tr>
                 <th scope='row'>" . $hotel["name"] . "</th>
                 <td>" . $hotel["description"] . "</td>
-                <td>" . ($hotel["parking"] == 1 ? "Sì" : "No") . "</td>
+                <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
                 <td>" . $hotel["vote"] . "</td>
                 <td>" . $hotel["distance_to_center"] . " KM" . "</td>
                 
@@ -122,7 +121,7 @@ $minVote = $_GET["minVote"] ?? 0;
                         echo "<tr>
                 <th scope='row'>" . $hotel["name"] . "</th>
                 <td>" . $hotel["description"] . "</td>
-                <td>" . ($hotel["parking"] == 1 ? "Sì" : "No") . "</td>
+                <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
                 <td>" . $hotel["vote"] . "</td>
                 <td>" . $hotel["distance_to_center"] . " KM" . "</td>
                 
