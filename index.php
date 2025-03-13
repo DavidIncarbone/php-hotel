@@ -39,6 +39,10 @@ $hotels = [
     ],
 
 ];
+
+$isParking = $_GET["checked"] ?? "";
+$showAll = $_GET["all"] ?? "";
+$minVote = $_GET["minVote"] ?? 0;
 ?>
 
 <!DOCTYPE html>
@@ -62,13 +66,18 @@ $hotels = [
 
     <form action="" method="GET">
 
-        <input type="checkbox" id="parking" name="checked">
-        <label for="parking">Solo Hotel con parcheggio</label>
+        <div>
+            <input type="checkbox" id="parking" name="checked">
+            <label for="parking">Solo Hotel con parcheggio</label>
+        </div>
+        <div class="my-2">
+            <input style="width:50px" type="number" id="minVote" name="minVote" min="1">
+            <label for="minVote">Voto minimo</label>
+        </div>
         <div>
             <button type="submit" class="btn btn-primary p-1">Filtra</button>
         </div>
     </form>
-
     <table class="table">
         <thead>
             <tr>
@@ -84,9 +93,11 @@ $hotels = [
         <tbody>
             <?php
 
-            foreach ($hotels as $hotel) {
+            if ((!$isParking && !$minVote)) {
 
-                echo "<tr>
+                foreach ($hotels as $hotel) {
+
+                    echo "<tr>
                 <th scope='row'>" . $hotel["name"] . "</th>
                 <td>" . $hotel["description"] . "</td>
                 <td>" . ($hotel["parking"] == 1 ? "Sì" : "No") . "</td>
@@ -94,8 +105,32 @@ $hotels = [
                 <td>" . $hotel["distance_to_center"] . " KM" . "</td>
                 
                      </tr>";
-            };
-            ?>;
+                }
+            } else {
+                foreach ($hotels as $hotel) {
+
+                    if ($hotel["parking"] == 1 && $hotel["vote"] >= $minVote) {
+                        echo "<tr>
+                <th scope='row'>" . $hotel["name"] . "</th>
+                <td>" . $hotel["description"] . "</td>
+                <td>" . ($hotel["parking"] == 1 ? "Sì" : "No") . "</td>
+                <td>" . $hotel["vote"] . "</td>
+                <td>" . $hotel["distance_to_center"] . " KM" . "</td>
+                
+                     </tr>";
+                    } else if (!$isParking && $hotel["vote"] >= $minVote) {
+                        echo "<tr>
+                <th scope='row'>" . $hotel["name"] . "</th>
+                <td>" . $hotel["description"] . "</td>
+                <td>" . ($hotel["parking"] == 1 ? "Sì" : "No") . "</td>
+                <td>" . $hotel["vote"] . "</td>
+                <td>" . $hotel["distance_to_center"] . " KM" . "</td>
+                
+                     </tr>";
+                    }
+                }
+            }
+            ?>
         </tbody>
     </table>
 
