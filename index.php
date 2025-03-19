@@ -130,6 +130,8 @@ $minVote = isset($_GET["minVote"]) && is_numeric($_GET["minVote"]) ? $_GET["minV
 
             ?>
 
+                <!-- stampiamo i risultati -->
+
                 <tr>
                     <td><?php echo $hotel["name"] ?></td>
                     <td><?php echo $hotel["description"] ?></td>
