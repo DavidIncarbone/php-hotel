@@ -1,5 +1,7 @@
 <?php
 
+// Dichiaro l'array di hotels
+
 $hotels = [
 
     [
@@ -39,6 +41,8 @@ $hotels = [
     ],
 
 ];
+
+// controllo se l'utente ha inserito filtri
 
 $isParking = isset($_GET["checked"]) && $_GET["checked"] == "on" ? true : false;
 $minVote = isset($_GET["minVote"]) && is_numeric($_GET["minVote"]) ? $_GET["minVote"] : 0;
@@ -95,36 +99,46 @@ $minVote = isset($_GET["minVote"]) && is_numeric($_GET["minVote"]) ? $_GET["minV
         </thead>
         <tbody>
             <?php
-            if ((!$isParking && !$minVote)) {
-                foreach ($hotels as $hotel) {
-                    echo "<tr>
-                    <th scope='row'>" . $hotel["name"] . "</th>
-                    <td>" . $hotel["description"] . "</td>
-                    <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
-                    <td>" . $hotel["vote"] . "</td>
-                    <td>" . $hotel["distance_to_center"] . " KM" . "</td>
-                 </tr>";
-                }
-            } else {
-                foreach ($hotels as $hotel) {
-                    if ($hotel["parking"] && $hotel["vote"] >= $minVote) {
-                        echo "<tr>
-                        <th scope='row'>" . $hotel["name"] . "</th>
-                        <td>" . $hotel["description"] . "</td>
-                        <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
-                        <td>" . $hotel["vote"] . "</td>
-                        <td>" . $hotel["distance_to_center"] . " KM" . "</td>
-                     </tr>";
-                    } else if (!$isParking && $hotel["vote"] >= $minVote) {
-                        echo "<tr>
-                        <th scope='row'>" . $hotel["name"] . "</th>
-                        <td>" . $hotel["description"] . "</td>
-                        <td>" . ($hotel["parking"] ? "Sì" : "No") . "</td>
-                        <td>" . $hotel["vote"] . "</td>
-                        <td>" . $hotel["distance_to_center"] . " KM" . "</td>
-                     </tr>";
+
+            // istruzioni che iterano per ogni hotel
+            // dopodichè lasciano spazio a questo codice html
+
+            foreach ($hotels as $hotel) {
+
+                //se l'utente ha richiesto il parcheggio
+                // mostriamo solo gli hotel che hanno il parcheggio
+
+                if ($isParking) {
+
+                    // controlliamo se l'hotel attuale ha i parcheggi
+
+                    if (!$hotel["parking"]) {
+
+                        //saltiamo il ciclo
+                        continue;
                     }
                 }
+
+                // controlliamo anche se il voto dell'hotel soddisfa il voto minimo richiesto
+                // se il voto dell'hotel è minore a quello richiesto:
+
+                if ($hotel["vote"] < $minVote) {
+
+                    //saltiamo il ciclo
+                    continue;
+                }
+
+            ?>
+
+                <tr>
+                    <td><?php echo $hotel["name"] ?></td>
+                    <td><?php echo $hotel["description"] ?></td>
+                    <td><?php echo $hotel["parking"] ? "Sì" : "No" ?></td>
+                    <td><?php echo $hotel["vote"] ?></td>
+                    <td><?php echo $hotel["distance_to_center"] . " KM" ?></td>
+
+                </tr>
+            <?php
             }
             ?>
         </tbody>
